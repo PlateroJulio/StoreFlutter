@@ -7,26 +7,31 @@ import 'package:store/Models/Producto.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 List<ItemCart> carrito = [];
-
+bool existe = false; //NO
 int new_count = 0;
 int index = 0;
 
 void addToCart(Producto item, int cant) {
-  ItemCart valores = ItemCart(item, cant);
+  existe = false;
 
-  if (carrito.indexOf(valores) != -1) {
+  if (carrito.length == 0) {
+    carrito.add(new ItemCart(item, cant));
+  } else {
     carrito.forEach((element) {
-      Producto prod = valores.getProducto();
+      Producto prod = element.getProducto();
       if (prod.getName() == item.getName()) {
         new_count = element.getCount();
         new_count = new_count + cant;
         int index = carrito.indexOf(element);
         carrito[index].setCount(new_count);
+        new_count = 0;
+        existe = true;
       }
     });
-  }
-  if (carrito.indexOf(valores) == -1) {
-    carrito.add(valores);
+
+    if (existe == false) {
+      carrito.add(new ItemCart(item, cant));
+    }
   }
 
   Fluttertoast.showToast(
