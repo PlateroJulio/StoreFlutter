@@ -10,4 +10,20 @@ class Producto {
     this._description = description;
     this._price = price;
   }
+
+  getName() {
+    return _name;
+  }
+
+  getUrl() {
+    return _url;
+  }
+
+  getDescription() {
+    return _description;
+  }
+
+  getPrice() {
+    return _price;
+  }
 }

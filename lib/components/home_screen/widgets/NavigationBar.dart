@@ -14,7 +14,7 @@ class NavigationBar extends StatelessWidget {
         height: 65,
         decoration: BoxDecoration(
             color: Colors.white,
-            boxShadow: [BoxShadow(offset: Offset(0, 0), blurRadius: 25)],
+            boxShadow: [BoxShadow(offset: Offset(0, 0), blurRadius: 10)],
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(15), topRight: Radius.circular(15))),
         child: Row(
