@@ -8,4 +8,16 @@ class ItemCart {
     this._item = item;
     this._count = count;
   }
+
+  getProducto() {
+    return _item;
+  }
+
+  getCount() {
+    return _count;
+  }
+
+  setCount(c) {
+    this._count = c;
+  }
 }
