@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:store/Models/Producto.dart';
+import 'package:store/components/Functions/Functions.dart';
 import 'package:store/components/home_screen/widgets/NavigationBar.dart';
 
 class Detail extends StatelessWidget {
@@ -42,6 +43,7 @@ class Detail extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Add your onPressed code here!
+          addToCart(item, 1);
         },
         child: const Icon(Icons.add_circle),
         backgroundColor: Colors.green,

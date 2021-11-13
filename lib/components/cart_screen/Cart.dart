@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:store/components/Functions/Functions.dart';
+import 'package:store/components/cart_screen/widget/ItemCard.dart';
 import 'package:store/components/home_screen/widgets/NavigationBar.dart';
 
 class Cart extends StatelessWidget {
@@ -11,10 +13,35 @@ class Cart extends StatelessWidget {
         title: Text('Store'),
       ),
       bottomNavigationBar: NavigationBar(),
-      body: Container(
-        child: Center(
-          child: Text('Cart'),
-        ),
+      body: Column(
+        children: <Widget>[
+          SizedBox(
+            height: 10,
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 10),
+            child: Align(
+              alignment: Alignment.center,
+              child: Text(
+                'Cart Products',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+          Expanded(child: ItemCard())
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Add your onPressed code here!
+          deleteAllToCart();
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Cart()),
+          );
+        },
+        child: const Icon(Icons.remove_circle),
+        backgroundColor: Colors.red,
       ),
     );
   }
