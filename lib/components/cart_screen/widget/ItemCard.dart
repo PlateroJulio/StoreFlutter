@@ -1,23 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:store/Models/ItemCart.dart';
 import 'package:store/Models/Producto.dart';
 import 'package:store/components/Functions/Functions.dart';
 import 'package:store/components/detail_screen/Detail.dart';
 
-class ItemProducto extends StatelessWidget {
-  final List<Producto> _items = [
-    Producto('Bananas', 'Frutas', 'assets/images/bananas.png',
-        'Fruta rica en potacio.', 0.36),
-    Producto('Apples', 'Frutas', 'assets/images/apples.png',
-        'Fruta rica en vitamina A.', 0.56),
-    Producto('Bakery', 'Arinas', 'assets/images/bakery.png',
-        'Panes integrales frescos', 0.65),
-    Producto('Bananas', 'Frutas', 'assets/images/bananas.png',
-        'Fruta rica en potacio.', 0.36),
-    Producto('Apples', 'Frutas', 'assets/images/apples.png',
-        'Fruta rica en vitamina A.', 0.56),
-    Producto('Bakery', 'Arinas', 'assets/images/bakery.png',
-        'Panes integrales frescos', 0.65),
-  ];
+class ItemCard extends StatelessWidget {
+  final List<ItemCart> _items = carrito;
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +19,12 @@ class ItemProducto extends StatelessWidget {
 }
 
 class Item extends StatelessWidget {
-  final Producto data;
+  final ItemCart data;
   const Item({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    Producto prod = data.getProducto();
     return Container(
       child: Card(
           margin: EdgeInsets.symmetric(horizontal: 10, vertical: 7),
@@ -43,7 +32,8 @@ class Item extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Detail(item: data)),
+                MaterialPageRoute(
+                    builder: (context) => Detail(item: data.getProducto())),
               );
             },
             child: Container(
@@ -59,22 +49,29 @@ class Item extends StatelessWidget {
                       children: [
                         Container(
                           width: 100,
-                          child: Image.asset(data.getUrl()),
+                          child: Image.asset(prod.getUrl()),
                         ),
-                        Text(data.getName()),
-                        Text(data.getPrice().toString()),
+                        Text("${prod.getName()}"),
+                        Text(prod.getPrice().toString()),
                         IconButton(
-                            onPressed: () {
-                              addToCart(data, 1);
-                            },
+                            onPressed: () {},
                             icon: Icon(
-                              Icons.add_circle,
-                              color: Colors.green,
+                              Icons.remove_circle,
+                              color: Colors.red,
                               size: 30,
                             ))
                       ],
                     ),
-                    Text(data.getDescription())
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text(prod.getDescription()),
+                        Text(
+                          "Unidades: " + data.getCount().toString(),
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    )
                   ],
                 )),
           )),
