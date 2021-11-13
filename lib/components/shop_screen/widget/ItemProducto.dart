@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:store/Models/Producto.dart';
+import 'package:store/components/Functions/Functions.dart';
 import 'package:store/components/detail_screen/Detail.dart';
 
 class ItemProducto extends StatelessWidget {
   final List<Producto> _items = [
-    Producto(
-        'Bananas', 'assets/images/bananas.png', 'Fruta rica en potacio.', 0.36),
-    Producto('Apples', 'assets/images/apples.png', 'Fruta rica en vitamina A.',
-        0.56),
-    Producto(
-        'Bakery', 'assets/images/bakery.png', 'Panes integrales frescos', 0.65),
-    Producto(
-        'Bananas', 'assets/images/bananas.png', 'Fruta rica en potacio.', 0.36),
-    Producto('Apples', 'assets/images/apples.png', 'Fruta rica en vitamina A.',
-        0.56),
-    Producto(
-        'Bakery', 'assets/images/bakery.png', 'Panes integrales frescos', 0.65),
+    Producto('Bananas', 'Frutas', 'assets/images/bananas.png',
+        'Fruta rica en potacio.', 0.36),
+    Producto('Apples', 'Frutas', 'assets/images/apples.png',
+        'Fruta rica en vitamina A.', 0.56),
+    Producto('Bakery', 'Arinas', 'assets/images/bakery.png',
+        'Panes integrales frescos', 0.65),
+    Producto('Bananas', 'Frutas', 'assets/images/bananas.png',
+        'Fruta rica en potacio.', 0.36),
+    Producto('Apples', 'Frutas', 'assets/images/apples.png',
+        'Fruta rica en vitamina A.', 0.56),
+    Producto('Bakery', 'Arinas', 'assets/images/bakery.png',
+        'Panes integrales frescos', 0.65),
   ];
 
   @override
@@ -61,7 +62,16 @@ class Item extends StatelessWidget {
                           child: Image.asset(data.getUrl()),
                         ),
                         Text(data.getName()),
-                        Text(data.getPrice().toString())
+                        Text(data.getPrice().toString()),
+                        IconButton(
+                            onPressed: () {
+                              addToCart(data, 1);
+                            },
+                            icon: Icon(
+                              Icons.add_circle,
+                              color: Colors.green,
+                              size: 30,
+                            ))
                       ],
                     ),
                     Text(data.getDescription())
