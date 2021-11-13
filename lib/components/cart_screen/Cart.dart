@@ -4,7 +4,12 @@ import 'package:store/components/cart_screen/widget/ItemCard.dart';
 import 'package:store/components/home_screen/widgets/NavigationBar.dart';
 
 class Cart extends StatelessWidget {
-  const Cart({Key? key}) : super(key: key);
+  bool estaVacio = carritoVacio();
+
+  @override
+  void initState() {
+    estaVacio;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +33,13 @@ class Cart extends StatelessWidget {
               ),
             ),
           ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            margin: EdgeInsets.symmetric(horizontal: 10),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(25)),
+            child: Align(
+                alignment: Alignment.center, child: btn(estaVacio, context)),
+          ),
           Expanded(child: ItemCard())
         ],
       ),
@@ -45,4 +57,27 @@ class Cart extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget btn(status, context) {
+  return (status)
+      ? Container()
+      : FlatButton(
+          color: Colors.blue,
+          onPressed: () {
+            animationPay(context);
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.payment,
+                color: Colors.white,
+              ),
+              Text(
+                'Ir a pasarela',
+                style: TextStyle(color: Colors.white),
+              )
+            ],
+          ));
 }

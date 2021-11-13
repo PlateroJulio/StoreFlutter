@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:store/Models/ItemCart.dart';
 import 'package:store/Models/Producto.dart';
 import 'package:store/components/Functions/Functions.dart';
+import 'package:store/components/cart_screen/Cart.dart';
 import 'package:store/components/detail_screen/Detail.dart';
 
 class ItemCard extends StatelessWidget {
@@ -54,7 +55,9 @@ class Item extends StatelessWidget {
                         Text("${prod.getName()}"),
                         Text(prod.getPrice().toString()),
                         IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              deleteOneItem(data.getProducto(), context);
+                            },
                             icon: Icon(
                               Icons.remove_circle,
                               color: Colors.red,
