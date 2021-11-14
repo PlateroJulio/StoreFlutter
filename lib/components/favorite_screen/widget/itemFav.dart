@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:store/Models/ItemCart.dart';
+import 'package:store/Models/Favorities.dart';
 import 'package:store/Models/Producto.dart';
 import 'package:store/components/Functions/Functions.dart';
 import 'package:store/components/detail_screen/Detail.dart';
 
-class ItemCard extends StatelessWidget {
-  final List<ItemCart> _items = carrito;
+class itemFav extends StatelessWidget {
+  List<ItemFavorite> _items = favoritos;
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +19,12 @@ class ItemCard extends StatelessWidget {
 }
 
 class Item extends StatelessWidget {
-  final ItemCart data;
+  final ItemFavorite data;
   const Item({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Producto prod = data.getProducto();
+    Producto prod = data.getFavorite();
     return Container(
       child: Card(
           margin: EdgeInsets.symmetric(horizontal: 10, vertical: 7),
@@ -33,7 +33,7 @@ class Item extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => Detail(item: data.getProducto())),
+                    builder: (context) => Detail(item: data.getFavorite())),
               );
             },
             child: Container(
@@ -55,25 +55,15 @@ class Item extends StatelessWidget {
                         Text(prod.getPrice().toString()),
                         IconButton(
                             onPressed: () {
-                              deleteOneItem(data.getProducto(), context);
+                              deleteOneFavorite(data.getFavorite(), context);
                             },
                             icon: Icon(
-                              Icons.remove_circle,
-                              color: Colors.red,
+                              Icons.favorite,
+                              color: Colors.pink[300],
                               size: 30,
                             ))
                       ],
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text(prod.getDescription()),
-                        Text(
-                          "Unidades: " + data.getCount().toString(),
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    )
                   ],
                 )),
           )),
