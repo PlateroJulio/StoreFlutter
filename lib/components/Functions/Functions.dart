@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:store/Models/ItemCart.dart';
 import 'package:store/Models/Producto.dart';
+import 'package:store/Models/Favorities.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:store/components/cart_screen/Cart.dart';
+import 'package:store/components/favorite_screen/Favorite.dart';
 
 List<Producto> _items = [
   Producto('Bananas', 'Frutas', 'assets/images/bananas.png',
@@ -44,6 +46,8 @@ List<Producto> _items = [
 ];
 
 List<ItemCart> carrito = [];
+List<ItemFavorite> favoritos = [];
+
 bool existe = false; //NO
 int new_count = 0;
 int index = 0;
@@ -58,6 +62,17 @@ void initState() {
 
 bool carritoVacio() {
   return (carrito.length == 0) ? true : false;
+}
+
+bool existsFavorite(Producto item) {
+  existe = false;
+  favoritos.forEach((element) {
+    Producto prodFav = element.getFavorite();
+    if (prodFav.getName() == item.getName()) {
+      existe = true;
+    }
+  });
+  return existe;
 }
 
 void addToCart(Producto item, int cant) {
@@ -93,6 +108,34 @@ void addToCart(Producto item, int cant) {
       fontSize: 16.0);
 }
 
+void addToFavorite(Producto item, int status) {
+  existe = false;
+
+  if (favoritos.length == 0) {
+    favoritos.add(new ItemFavorite(item, status));
+  } else {
+    favoritos.forEach((element) {
+      Producto prod = element.getFavorite();
+      if (prod.getName() == item.getName()) {
+        existe = true;
+      }
+    });
+
+    if (existe == false) {
+      favoritos.add(new ItemFavorite(item, status));
+    }
+  }
+
+  Fluttertoast.showToast(
+      msg: "Add to product a Favorite!",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.pink[300],
+      textColor: Colors.white,
+      fontSize: 16.0);
+}
+
 void deleteOneItem(Producto item, context) {
   carrito.forEach((element) {
     Producto prod = element.getProducto();
@@ -116,10 +159,38 @@ void deleteOneItem(Producto item, context) {
   new_count = 0;
 }
 
+void deleteOneFavorite(Producto item, context) {
+  favoritos.forEach((element) {
+    Producto prod_f = element.getFavorite();
+    int cantidad = element.getEstado();
+    if (prod_f.getName() == item.getName()) {
+      //validar si cantidad es igual a 1
+      if (cantidad == 1) {
+        favoritos.removeWhere((element) => (element.getFavorite() == item));
+      }
+    }
+  });
+  Navigator.push(
+      context, new MaterialPageRoute(builder: (context) => new Favorite()));
+  new_count = 0;
+}
+
 void deleteAllToCart() {
   carrito.clear();
   Fluttertoast.showToast(
       msg: "Delete all to cart",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+      fontSize: 16.0);
+}
+
+void deleteAllToFavorite() {
+  favoritos.clear();
+  Fluttertoast.showToast(
+      msg: "Delete all to favorite",
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.CENTER,
       timeInSecForIosWeb: 1,
