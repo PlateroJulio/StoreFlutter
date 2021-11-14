@@ -8,7 +8,7 @@ class Explore extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Store'),
+        title: Text('Categories'),
       ),
       bottomNavigationBar: NavigationBar(),
       body: Column(

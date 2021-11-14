@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:store/components/account_screen/widget/personData.dart';
 import 'package:store/components/home_screen/widgets/NavigationBar.dart';
 
 class Account extends StatelessWidget {
@@ -8,12 +9,16 @@ class Account extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Store'),
+        title: Text('Account'),
       ),
       bottomNavigationBar: NavigationBar(),
       body: Container(
         child: Center(
-          child: Text('ACcount'),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [personData()],
+            ),
+          ),
         ),
       ),
     );

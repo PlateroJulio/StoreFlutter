@@ -10,7 +10,7 @@ class Shop extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Store'),
+        title: Text('Shop'),
       ),
       bottomNavigationBar: NavigationBar(),
       body: Column(
