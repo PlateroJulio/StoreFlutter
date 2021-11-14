@@ -62,7 +62,7 @@ Widget itemExplore(context) {
           height: 65,
           width: 65,
           child: Column(
-            children: [Icon(Icons.travel_explore), Text('Explore')],
+            children: [Icon(Icons.travel_explore), Text('Category')],
           )),
     ),
   );

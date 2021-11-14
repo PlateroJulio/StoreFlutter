@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:store/components/explore_screen/widget/Lista.dart';
+import 'package:store/components/explore_screen/widget/widgets.dart';
 import 'package:store/components/home_screen/widgets/NavigationBar.dart';
 
 class Explore extends StatelessWidget {
-  const Explore({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,10 +11,8 @@ class Explore extends StatelessWidget {
         title: Text('Store'),
       ),
       bottomNavigationBar: NavigationBar(),
-      body: Container(
-        child: Center(
-          child: Text('Explore'),
-        ),
+      body: Column(
+        children: [encabezadoCategory(context), Expanded(child: Lista())],
       ),
     );
   }

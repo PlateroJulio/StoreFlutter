@@ -1,12 +1,16 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:store/Models/ItemCart.dart';
 import 'package:store/Models/Producto.dart';
 import 'package:store/components/Functions/Functions.dart';
-import 'package:store/components/cart_screen/Cart.dart';
 import 'package:store/components/detail_screen/Detail.dart';
 
-class ItemCard extends StatelessWidget {
-  final List<ItemCart> _items = carrito;
+class Lista extends StatelessWidget {
+  List<Producto> _items = CategoryData();
+
+  @override
+  void initState() {
+    _items = CategoryData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,18 +18,17 @@ class ItemCard extends StatelessWidget {
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
       itemCount: _items.length,
-      itemBuilder: (_, i) => Item(data: _items[i]),
+      itemBuilder: (_, i) => ItemCate(data: _items[i]),
     );
   }
 }
 
-class Item extends StatelessWidget {
-  final ItemCart data;
-  const Item({Key? key, required this.data}) : super(key: key);
+class ItemCate extends StatelessWidget {
+  final Producto data;
+  const ItemCate({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Producto prod = data.getProducto();
     return Container(
       child: Card(
           margin: EdgeInsets.symmetric(horizontal: 10, vertical: 7),
@@ -33,8 +36,7 @@ class Item extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Detail(item: data.getProducto())),
+                MaterialPageRoute(builder: (context) => Detail(item: data)),
               );
             },
             child: Container(
@@ -50,31 +52,22 @@ class Item extends StatelessWidget {
                       children: [
                         Container(
                           width: 50,
-                          child: Image.asset(prod.getUrl()),
+                          child: Image.asset(data.getUrl()),
                         ),
-                        Text("${prod.getName()}"),
-                        Text(prod.getPrice().toString()),
+                        Text(data.getName()),
+                        Text(data.getPrice().toString()),
                         IconButton(
                             onPressed: () {
-                              deleteOneItem(data.getProducto(), context);
+                              addToCart(data, 1);
                             },
                             icon: Icon(
-                              Icons.remove_circle,
-                              color: Colors.red,
+                              Icons.add_circle,
+                              color: Colors.green,
                               size: 30,
                             ))
                       ],
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text(prod.getDescription()),
-                        Text(
-                          "Unidades: " + data.getCount().toString(),
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    )
+                    Text(data.getDescription())
                   ],
                 )),
           )),
