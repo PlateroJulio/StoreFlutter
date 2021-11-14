@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:store/Models/Producto.dart';
 import 'package:store/components/Functions/Functions.dart';
 import 'package:store/components/detail_screen/Detail.dart';
+import 'package:store/components/shop_screen/Shop.dart';
 
 class ItemProducto extends StatelessWidget {
   final List<Producto> _items = [
@@ -71,12 +72,13 @@ class Item extends StatelessWidget {
               );
             },
             child: Container(
-                height: 120,
+                height: 155,
                 width: double.infinity,
                 decoration: BoxDecoration(
                     border: Border.all(color: Colors.blue, width: 1.5),
                     borderRadius: BorderRadius.circular(15)),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -98,7 +100,27 @@ class Item extends StatelessWidget {
                             ))
                       ],
                     ),
-                    Text(data.getDescription())
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(data.getDescription()),
+                        IconButton(
+                            onPressed: () {
+                              addToFavorite(data, 1);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => Shop()),
+                              );
+                            },
+                            icon: Icon(
+                              existsFavorite(data)
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              color: Colors.pink[300],
+                              size: 30,
+                            ))
+                      ],
+                    )
                   ],
                 )),
           )),
